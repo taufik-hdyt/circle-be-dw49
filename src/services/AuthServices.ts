@@ -3,6 +3,8 @@ import { User } from "../entity/User"
 import { AppDataSource } from "../data-source"
 import { Request, Response } from "express"
 import { createUserSchema } from "../utils/validator/User"
+import * as bcrypt from 'bcrypt'
+import  * as jwt from "jsonwebtoken"
 
 export default new class UserServices{
   private readonly UserRepository: Repository<User> = AppDataSource.getRepository(User)
@@ -20,29 +22,46 @@ export default new class UserServices{
 
   async create(req: Request, res: Response): Promise<Response> {
     try {
-      const data = req.body;
+      const {fullname,email,password} = req.body;
+         // CHECK EMAIL
+         const checkEmail = await this.UserRepository.findOne({
+          where: {
+            email,
+          },
+        });
+
+        if (checkEmail) {
+          throw new Error ("Email sudah terdaftar")
+        }
+
+        const passwordHashed = await bcrypt.hash(password,10)
+
       // cek validate input body
-      const { error, value } = createUserSchema.validate(data);
+      const { error } = createUserSchema.validate(req.body);
       if (error) return res.status(401).json({ Error: error });
 
       const user = this.UserRepository.create({
-        fullname: value.fullname,
-        email: value.email,
-        password: value.password,
-        profile_picture: value.profile_picture,
-        profile_description: value.profile_description,
-        username: value.username
+        username: `user${Math.floor(Math.random() * 10)}`,
+        fullname: fullname,
+        email: email,
+        password: passwordHashed,
+        profile_picture: "https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png",
+        profile_description: "",
       });
 
       const createdUser = await this.UserRepository.save(user)
-      return res.status(201).json(createdUser)
+      return res.status(201).json({
+        data: createdUser,
+        message: "Success Create User"
+      })
     } catch (error) {
+      console.log(error);
+
       return res.status(500).json({
-        Error: "Error while creating user",
+        Error: "Error Create User",
       });
     }
   }
-
   async findOne(req: Request, res: Response): Promise<Response> {
     try {
       const id = parseInt(req.params.id)
@@ -59,7 +78,6 @@ export default new class UserServices{
       });
     }
   }
-
   async delete(req: Request, res: Response): Promise<Response> {
     try {
       const id = parseInt(req.params.id)
@@ -79,8 +97,6 @@ export default new class UserServices{
       });
     }
   }
-
-
   async update(req: Request, res: Response): Promise<Response> {
     try {
       const id = parseInt(req.params.id)
@@ -102,6 +118,45 @@ export default new class UserServices{
       return res.status(500).json({
         Error: "Error while creating User",
       });
+    }
+  }
+
+  async login(req:Request, res:Response): Promise<Response>{
+    try {
+      const {emailOrUsername,password} = req.body
+
+      //  Check Email / User
+      const userSelected = await this.UserRepository.findOne({
+        where: [  {email: emailOrUsername},
+          {username: emailOrUsername}]
+
+
+      })
+      if(!userSelected) return res.status(400).json({
+        message: "Email or Username wrong"
+      })
+
+      // Check Login
+      const isPasswordValid = await bcrypt.compare(password,userSelected.password)
+      if(!isPasswordValid) return res.json({
+        message: "Password Wrong"
+      })
+
+      // create token
+      const token = jwt.sign({
+        id: userSelected.id
+      }, "eojewfidvdsjvkvchcvcxv", {expiresIn: 500000})
+
+      return res.status(201).json({
+        code: 201,
+        status: "success",
+        message: "Login Success",
+        token,
+      });
+
+    } catch (error) {
+      console.log(error);
+
     }
   }
 

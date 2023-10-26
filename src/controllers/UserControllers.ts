@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import UserServices from "../services/UserServices";
+import UserServices from "../services/AuthServices";
 
 export default new class UserControllers{
   find(req: Request, res: Response){
@@ -19,5 +19,9 @@ export default new class UserControllers{
 
   create(req: Request, res: Response){
     UserServices.create(req,res)
+  }
+
+  login(req: Request, res: Response){
+    UserServices.login(req,res)
   }
 }

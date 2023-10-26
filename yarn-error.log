@@ -1,0 +1,63 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Taufikhdyt\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add bcrypt
+
+PATH: 
+  C:\Users\Taufikhdyt\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Taufikhdyt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Users\Taufikhdyt\AppData\Local\Microsoft\WindowsApps;C:\Users\Taufikhdyt\AppData\Roaming\npm;C:\Users\Taufikhdyt\AppData\Local\atom\bin;C:\Users\Taufikhdyt\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Taufikhdyt\AppData\Local\Microsoft\WindowsApps;D:\FLUTTER\flutter\bin;C:\adb;C:\Program Files\nodejs;C:\Program Files\Go\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Users\Taufikhdyt\AppData\Local\Microsoft\WindowsApps;C:\Users\Taufikhdyt\AppData\Local\atom\bin;C:\Users\Taufikhdyt\AppData\Local\Microsoft\WindowsApps;D:\FLUTTER\flutter\bin;C:\Users\Taufikhdyt\AppData\Roaming\npm;C:\Users\Taufikhdyt\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Taufikhdyt\go\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.14.2
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/migration:generate: Not found
+      at Request.params.callback [as _callback] (C:\Users\Taufikhdyt\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
+      at Request.self.callback (C:\Users\Taufikhdyt\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:526:28)
+      at Request.<anonymous> (C:\Users\Taufikhdyt\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:526:28)
+      at IncomingMessage.<anonymous> (C:\Users\Taufikhdyt\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:645:28)
+      at IncomingMessage.emit (node:events:538:35)
+      at endReadableNT (node:internal/streams/readable:1345:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+     "name": "be-threads",
+     "version": "0.0.1",
+     "description": "Awesome project developed with TypeORM.",
+     "type": "commonjs",
+     "devDependencies": {
+        "@types/express": "^4.17.20",
+        "@types/node": "^16.11.10",
+        "nodemon": "^3.0.1",
+        "ts-node": "10.7.0",
+        "typescript": "4.5.2"
+     },
+     "dependencies": {
+        "express": "^4.18.2",
+        "joi": "^17.11.0",
+        "pg": "^8.4.0",
+        "reflect-metadata": "^0.1.13",
+        "typeorm": "0.3.17",
+        "migration:generate": "npx typeorm ts-node-commonjs migration:generate -d src/data-source.ts database/migration/MigrationFile",
+        "migration:up" : "npx typeorm ts-node-commonjs migration:run -d src/data-source.ts",
+        "migration:down" : "npx typeorm ts-node-commonjs migration:revert -d src/data-source.ts"
+  
+     },
+     "scripts": {
+        "start": "nodemon --exec ts-node src/index.ts",
+        "typeorm": "typeorm-ts-node-commonjs"
+     }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

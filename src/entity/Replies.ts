@@ -20,7 +20,7 @@ export class Replies {
     })
     @JoinColumn({name: "user_id"})
     user: User
-    @ManyToOne(()=> Thread, (thread)=> thread)
+    @ManyToOne(()=> Thread, (thread)=> thread.replies)
     @JoinColumn({name: "thread_id"})
     thread: Thread
 

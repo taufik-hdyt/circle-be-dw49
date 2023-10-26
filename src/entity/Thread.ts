@@ -14,9 +14,9 @@ export class Thread {
     @Column({nullable: true})
     image: string
 
-    @CreateDateColumn({type: "time with time zone"})
+    @CreateDateColumn({type: "timestamp with time zone"})
     createdAt : Date
-    @UpdateDateColumn({type: "time with time zone"})
+    @UpdateDateColumn({type: "timestamp with time zone"})
     updateAt : Date
 
     @ManyToOne(()=> User, (user)=> user.threads,{
