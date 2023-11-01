@@ -27,7 +27,7 @@ export default new (class ThreadWorker {
                 id: payload.user,
               },
             });
-            console.log(thread);
+
 
             const threadResponse = await this.ThreadRepository.save(thread);
             this.emitter.emit("message");

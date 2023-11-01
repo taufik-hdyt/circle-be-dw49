@@ -17,22 +17,30 @@ export default new (class ThreadServices {
         });
       const followingUser: User | null = await this.UserRepository.findOne({
         where: {
-          id: res.locals.auth.id,
+          id,
         },
       });
       if (!followingUser)
         return res.status(404).json({ Error: "User not found" });
+
+
+
       const followerUser: User | null = await this.UserRepository.findOne({
         where: {
-          id,
+          id: res.locals.auth.id,
         },
       });
       if (!followerUser)
         return res.status(404).json({ Error: "User not found" });
+
+
+
       if (followerUser.id === followingUser.id)
         return res.status(401).json({
           message: "Tidak dapat follow sendiri",
         });
+
+
 
       // check jika sudah follow
       const checkFollow = await this.UserRepository.query(
@@ -45,6 +53,8 @@ export default new (class ThreadServices {
           "DELETE FROM following WHERE following_id=$1 AND follower_id=$2",
           [followingUser.id, followerUser.id]
         );
+
+
         return res.status(200).json({
           status: "success",
           message: "Undo Follow User Success",
