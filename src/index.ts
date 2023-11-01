@@ -4,6 +4,8 @@ import ThreadRoutes from "./route/ThreadRoutes"
 import UserRoutes from "./route/UserRoutes"
 import * as  cors from 'cors'
 import FollowRoutes from "./route/FollowRoutes"
+import UploadRoutes from "./route/UploadRoutes"
+import "dotenv/config"
 
 AppDataSource.initialize()
 .then(async () => {
@@ -16,6 +18,7 @@ AppDataSource.initialize()
     app.use('/api/v1', ThreadRoutes)
     app.use('/api/v1', UserRoutes)
     app.use('/api/v1', FollowRoutes)
+    app.use('/api/v1', UploadRoutes)
 
 
     // menjalankan di port 5000

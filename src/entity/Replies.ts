@@ -6,13 +6,13 @@ import { Thread } from "./Thread"
 export class Replies {
     @PrimaryGeneratedColumn()
     id: number
-    @Column()
+    @Column({nullable: true})
     image: string
     @Column()
     content: string
-    @CreateDateColumn({type: "time with time zone"})
+    @CreateDateColumn({type: "timestamp with time zone"})
     createdAt : Date
-    @UpdateDateColumn({type: "time with time zone"})
+    @UpdateDateColumn({type: "timestamp with time zone"})
     updateAt : Date
     @ManyToOne(()=> User, (user)=>user.replies,{
         onDelete: "CASCADE",

@@ -52,8 +52,9 @@ export default new (class ThreadServices {
         if (likeSelected) {
           await this.LikeRepository.delete(likeSelected.id);
           return res.status(201).json({
+            code: 201,
             status: "success",
-            message: "Undo Like Thread Success",
+            message: "Unlike",
           });
         }
 
@@ -66,16 +67,15 @@ export default new (class ThreadServices {
         return res.status(201).json({
           code: 201,
           status: "success",
-          message: "Like Thread Success",
+          message: "Like",
         });
         //  ketika ada like
 
 
       } catch (error) {
-        console.log(error);
         return res.status(500).json({
-          Error: "Error while creating threads",
-        });
+          message: error.message
+        })
       }
     }
 

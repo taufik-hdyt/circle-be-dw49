@@ -4,6 +4,7 @@ import { Thread } from "../entity/Thread";
 import { User } from "../entity/User";
 import { Replies } from "../entity/Replies";
 import { Request, Response } from "express";
+import { createThreadSchema } from "../utils/validator/Thread";
 
 export default new (class ReplyServices {
   private readonly ReplyRepository: Repository<Replies> =
@@ -20,7 +21,9 @@ export default new (class ReplyServices {
           where: {
             id: res.locals.auth.id,
           },
+          relations: ["threads"]
         });
+
 
         // check use yang di pilih
         if (!userSelected) return res.status(404).json({Error: "User not found"})
@@ -33,12 +36,18 @@ export default new (class ReplyServices {
         );
 
         // check thread yang di pilih
-        if (!threadSelected) return res.status(404).json({Error: "Thread not found"})
+        if (!threadSelected) return res.status(404).json({message: "Thread not found"})
         const { content, image } = req.body;
+
+        const { error } = createThreadSchema.validate(req.body);
+        if (error) return res.status(400).json({ message: error.details[0] });
+
         const reply: Replies = new Replies();
         reply.content = content;
+
         if (image) reply.image = image;
         reply.user = userSelected;
+
         reply.thread = threadSelected;
         await this.ReplyRepository.save(reply);
         return res.status(201).json({
@@ -49,8 +58,9 @@ export default new (class ReplyServices {
 
       } catch (error) {
         console.log(error);
+
         return res.status(500).json({
-          message: "Error Reply"
+          message: error.message
         })
       }
     }

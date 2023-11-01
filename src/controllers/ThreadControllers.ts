@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ThreadServices from "../services/ThreadServices";
+import ThreadQueue from "../queue/ThreadQueue";
 
 export default new class ThreadControllers{
   find(req: Request, res: Response){
@@ -16,5 +17,8 @@ export default new class ThreadControllers{
   }
   delete(req: Request, res: Response){
     ThreadServices.delete(req,res)
+  }
+  createThread(req:Request, res:Response){
+    ThreadQueue.create(req,res)
   }
 }
