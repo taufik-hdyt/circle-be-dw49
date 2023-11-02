@@ -22,9 +22,6 @@ export default new (class ThreadServices {
       });
       if (!followingUser)
         return res.status(404).json({ Error: "User not found" });
-
-
-
       const followerUser: User | null = await this.UserRepository.findOne({
         where: {
           id: res.locals.auth.id,
@@ -32,16 +29,10 @@ export default new (class ThreadServices {
       });
       if (!followerUser)
         return res.status(404).json({ Error: "User not found" });
-
-
-
       if (followerUser.id === followingUser.id)
         return res.status(401).json({
           message: "Tidak dapat follow sendiri",
         });
-
-
-
       // check jika sudah follow
       const checkFollow = await this.UserRepository.query(
         "SELECT * FROM following WHERE following_id=$1 AND follower_id=$2",
@@ -61,8 +52,11 @@ export default new (class ThreadServices {
         });
       }
 
-      followingUser.users = [followerUser];
-      this.UserRepository.save(followingUser);
+      await this.UserRepository.query(
+        "INSERT INTO following(following_id,follower_id) VALUES($1,$2)",
+        [followingUser.id, followerUser.id]
+      )
+
       return res.status(201).json({
         status: "success",
         message: "Follow Success",

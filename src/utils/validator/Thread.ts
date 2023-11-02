@@ -1,7 +1,7 @@
 import * as Joi from 'joi'
 
 export const createThreadSchema = Joi.object({
-  content: Joi.string().required(),
+  content: Joi.string(),
   image: Joi.string()
 })
 

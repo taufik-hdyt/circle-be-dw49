@@ -3,7 +3,7 @@ import * as amqp from "amqplib";
 export default new (class MessageQueue {
   async MessageSend(queueName: string, payload: any): Promise<Boolean> {
     try {
-      const connection = await amqp.connect("amqp://localhost");
+      const connection = await amqp.connect("amqps://rsvliwsi:HMu8AWB3r97ziFK5-JVXKhbnJ7Fcp6oK@octopus.rmq3.cloudamqp.com/rsvliwsi");
       const channel = await connection.createChannel();
 
       await channel.assertQueue(queueName);

@@ -14,7 +14,7 @@ export default new (class UserServices {
       const user = await this.UserRepository.createQueryBuilder()
         .select()
         .orderBy("RANDOM()")
-        .limit(4)
+        .limit(3)
         .getMany();
       return res.status(200).json(user);
     } catch (error) {

@@ -9,7 +9,7 @@ export default new class WorkerHub{
     AppDataSource.initialize()
     .then(async()=> {
       cloudinary.upload()
-      const connection = await amqp.connect("amqp://localhost")
+      const connection = await amqp.connect("amqps://rsvliwsi:HMu8AWB3r97ziFK5-JVXKhbnJ7Fcp6oK@octopus.rmq3.cloudamqp.com/rsvliwsi")
 
       // create worker anymore
       const resp = await ThreadWorker.create("threads-queue", connection)

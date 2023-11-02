@@ -25,8 +25,8 @@ export default new (class ThreadQueue {
         });
 
       const payload: QueuePayload = {
-        content: value.content,
-        image:  value.image ,
+        content: data.content,
+        image:  data.image ,
         user: logginSession.id,
       };
         const errorQueue = await  MessageQueue.MessageSend("threads-queue", payload)

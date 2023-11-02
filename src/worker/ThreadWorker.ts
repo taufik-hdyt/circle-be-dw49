@@ -3,6 +3,7 @@ import { Thread } from "../entity/Thread";
 import { AppDataSource } from "../data-source";
 import { EventEmitter } from "stream";
 import cloudinary from "../libs/cloudinary";
+import { request } from "http";
 
 export default new (class ThreadWorker {
   private readonly ThreadRepository: Repository<Thread> =
@@ -17,9 +18,9 @@ export default new (class ThreadWorker {
         try {
           if (message !== null) {
             const payload = JSON.parse(message.content.toString());
-            const cloudinaryRespone = await cloudinary.destination(
+            const cloudinaryRespone = payload.image ? await cloudinary.destination(
               payload.image
-            );
+            ) : null
             const thread = this.ThreadRepository.create({
               content: payload.content,
               image: cloudinaryRespone,
@@ -30,6 +31,20 @@ export default new (class ThreadWorker {
 
 
             const threadResponse = await this.ThreadRepository.save(thread);
+
+            // request to server
+            const req = request({
+              hostname:"localhost",
+              port: 5000,
+              path:"/api/v1/thread-post",
+              method: "GET"
+            })
+            req.on("error", (error)=>{
+              console.log("Error sending request", error);
+            })
+            console.log("sending request");
+            req.end()
+
             this.emitter.emit("message");
             console.log("(Worker) : Thread is create");
             channel.ack(message);
