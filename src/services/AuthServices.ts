@@ -46,7 +46,7 @@ export default new (class AuthServices {
         email: email,
         password: passwordHashed,
         profile_picture:
-          "https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         profile_description: "",
       });
 

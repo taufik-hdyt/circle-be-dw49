@@ -46,6 +46,7 @@ export default new (class UserServices {
         where: {
           id,
         },
+
       });
       if (!user) res.status(404).json({ message: " Data Not found" });
       const followings = await this.UserRepository.query(

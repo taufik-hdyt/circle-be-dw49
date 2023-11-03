@@ -44,8 +44,6 @@ export default new (class ThreadServices {
           "DELETE FROM following WHERE following_id=$1 AND follower_id=$2",
           [followingUser.id, followerUser.id]
         );
-
-
         return res.status(200).json({
           status: "success",
           message: "Undo Follow User Success",
