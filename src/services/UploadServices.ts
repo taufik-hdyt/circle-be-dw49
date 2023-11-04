@@ -8,17 +8,15 @@ export default new (class UploadServices {
       let image: string | undefined = undefined;
 
       if (req.file?.filename) {
-        image = await uploadToCloudinary(req.file)
-        deleteFile(req.file.path)
+        image = await uploadToCloudinary(req.file);
+        deleteFile(req.file.path);
       }
 
       return res.status(200).json({
         status: "Success",
         message: "Upload image success",
-        data: {
-          url:image
-        }
-      })
+        url: image,
+      });
     } catch (error) {
       console.log(error);
     }

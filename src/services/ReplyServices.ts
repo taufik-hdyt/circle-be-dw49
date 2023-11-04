@@ -46,8 +46,7 @@ export default new (class ReplyServices {
         reply.content = content;
 
         if (image) reply.image = image;
-        reply.user = userSelected;
-
+        reply.user = userSelected
         reply.thread = threadSelected;
         await this.ReplyRepository.save(reply);
         return res.status(201).json({
