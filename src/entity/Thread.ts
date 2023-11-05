@@ -19,6 +19,7 @@ export class Thread {
     @UpdateDateColumn({type: "timestamp with time zone"})
     updateAt : Date
 
+    // banyak thread yang dimiliki satu user
     @ManyToOne(()=> User, (user)=> user.threads,{
         onUpdate: "CASCADE",
         onDelete: "CASCADE"

@@ -31,6 +31,7 @@ export class User {
   @CreateDateColumn({ type: "time with time zone" })
   createdAt: Date;
 
+   // 1 user bisa memiliki banyak threads
   @OneToMany(() => Thread, (thread) => thread.user, {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
