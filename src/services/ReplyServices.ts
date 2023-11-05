@@ -45,6 +45,8 @@ export default new (class ReplyServices {
         const reply: Replies = new Replies();
         reply.content = content;
 
+
+
         if (image) reply.image = image;
         reply.user = userSelected
         reply.thread = threadSelected;
