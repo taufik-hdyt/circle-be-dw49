@@ -44,6 +44,7 @@ export default new (class ThreadServices {
         message: "Success",
         data: threadsData,
       });
+
     } catch (error) {
       return res.status(500).json({
         message: error.message
@@ -103,6 +104,7 @@ export default new (class ThreadServices {
       const createdThread = await this.ThreadRepository.save(thread);
       return res.status(201).json(createdThread);
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         message: error.message
       })

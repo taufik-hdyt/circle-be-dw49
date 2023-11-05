@@ -30,7 +30,7 @@ export default new (class ThreadWorker {
             });
 
 
-            const threadResponse = await this.ThreadRepository.save(thread);
+            await this.ThreadRepository.save(thread);
 
             // request to server
             const req = request({
@@ -42,6 +42,7 @@ export default new (class ThreadWorker {
             req.on("error", (error)=>{
               console.log("Error sending request", error);
             })
+
             console.log("sending request");
             req.end()
 
