@@ -86,9 +86,7 @@ export default new (class ThreadServices {
       // const image = res.locals.filename
       const data = req.body
       // cek validate input body
-      const { error, value } = createThreadSchema.validate(data);
-      if (error) return res.status(400).json({ Error: error.message });
-
+      if(data.content === "" && data.image === "") return res.status(400).json({message: "image or content not empty"})
       const userSelected = await this.UserRepository.findOne({
         where: {
           id: res.locals.auth.id,
@@ -96,8 +94,8 @@ export default new (class ThreadServices {
       });
 
       const thread = this.ThreadRepository.create({
-        content: value.content,
-        image: value.image,
+        content: data.content,
+        image: data.image,
         user: userSelected,
       });
 
