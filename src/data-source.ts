@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     host: "localhost",
     port: 5432,
     username: "postgres",
-    password: "11111",
+    password: "root",
     database: "thread-apps",
     synchronize: true,
     logging: false,
