@@ -7,11 +7,12 @@ import { Like } from "./entity/Likes"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
+    host: "ep-fragrant-bush-09941286.us-east-2.aws.neon.tech",
     port: 5432,
-    username: "postgres",
-    password: "root",
+    username: "taufik-hdyt",
+    password: "QNp8YA2bSzse",
     database: "thread-apps",
+    ssl: true,
     synchronize: true,
     logging: false,
     entities: [User,Thread,Replies,Like],
