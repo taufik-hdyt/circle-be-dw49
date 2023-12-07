@@ -2,9 +2,7 @@ import { ILike, Repository } from "typeorm";
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
-import { createUserSchema } from "../utils/validator/User";
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
+
 
 export default new (class UserServices {
   private readonly UserRepository: Repository<User> =
@@ -18,7 +16,7 @@ export default new (class UserServices {
         .getMany();
       return res.status(200).json(user);
     } catch (error) {
-      return res.status(500).json({
+      res.status(500).json({
         message: error.message,
       });
     }
@@ -34,7 +32,7 @@ export default new (class UserServices {
       });
       return res.status(200).json(user);
     } catch (error) {
-      return res.status(500).json({
+      res.status(500).json({
         message: error.message,
       });
     }
@@ -65,7 +63,7 @@ export default new (class UserServices {
       };
       return res.status(200).json(userDetail);
     } catch (error) {
-      return res.status(500).json({
+      res.status(500).json({
         message: error.message,
       });
     }
@@ -86,7 +84,7 @@ export default new (class UserServices {
       await this.UserRepository.delete(id);
       res.status(200).json("Deleted");
     } catch (error) {
-      return res.status(500).json({
+      res.status(500).json({
         message: error.message,
       });
     }
@@ -109,7 +107,7 @@ export default new (class UserServices {
       const update = await this.UserRepository.save(user);
       return res.status(200).json(update);
     } catch (error) {
-      return res.status(500).json({
+      res.status(500).json({
         message: error.message,
       });
     }
