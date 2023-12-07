@@ -7,8 +7,8 @@ import uploadImages from '../middlewares/UploadImages'
 import { UploadFile } from '../middlewares/UploadFile'
 const router = express.Router()
 
-router.get('/threads', ThreadControllers.find)
-router.get('/thread/:id', ThreadControllers.findOne)
+router.get('/threads',jwtAuth, ThreadControllers.find)
+router.get('/thread/:id',jwtAuth, ThreadControllers.findOne)
 router.post('/thread',jwtAuth, ThreadControllers.create)
 router.patch('/thread/:id',jwtAuth, ThreadControllers.update)
 router.delete('/thread/:id',jwtAuth, ThreadControllers.delete)
