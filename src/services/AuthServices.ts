@@ -41,7 +41,7 @@ export default new (class AuthServices {
         return res.status(401).json({ message: error.details[0].message });
 
       const user = this.UserRepository.create({
-        username: `${fullname}${Math.floor(Math.random() * 1000)}`,
+        username: `User${Math.floor(Math.random() * 1000)}`,
         fullname: fullname,
         email: email,
         password: passwordHashed,
