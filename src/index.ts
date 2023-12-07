@@ -10,7 +10,7 @@ import "dotenv/config"
 AppDataSource.initialize()
 .then(async () => {
     const app = express()
-    const port  = 5000
+    const port  = process.env.PORT
     app.use(cors())
     // kominukasi type data json
     app.use(express.json())
