@@ -9,6 +9,7 @@ import * as jwt from "jsonwebtoken";
 export default new (class AuthServices {
   private readonly UserRepository: Repository<User> =
     AppDataSource.getRepository(User);
+    
   async register(req: Request, res: Response): Promise<Response> {
     try {
       const { fullname, email, password } = req.body;
